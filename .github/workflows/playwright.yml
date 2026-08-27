@@ -1,0 +1,76 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Quality and non-mutating tests
+    timeout-minutes: 45
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL || 'https://app.qa.nesto.ca' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Type-check
+        run: npm run typecheck
+      - name: Check formatting
+        run: npm run format:check
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run non-mutating Playwright tests
+        run: npm test
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+      - name: Upload JUnit results
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: junit-results
+          path: test-results/junit.xml
+          retention-days: 30
+
+  mutating-smoke:
+    name: Manual Chromium account-creation tests
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    needs: test
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL || 'https://app.qa.nesto.ca' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run mutating smoke coverage without retries
+        run: npm run test:mutating
+      - name: Upload mutating-test report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: mutating-playwright-report
+          path: playwright-report/
+          retention-days: 30

@@ -1,0 +1,40 @@
+{
+  "name": "nesto-signup-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright + TypeScript end-to-end automation for the nesto bilingual signup page",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^10.0.1",
+    "@faker-js/faker": "^10.6.0",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0",
+    "dotenv": "^17.4.2",
+    "eslint": "^10.9.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.6",
+    "typescript-eslint": "^8.67.0"
+  },
+  "scripts": {
+    "test": "playwright test --grep-invert \"@Mutating|@RateLimit\"",
+    "test:en": "playwright test --grep @en --grep-invert \"@Mutating|@RateLimit\"",
+    "test:fr": "playwright test --grep @fr --grep-invert \"@Mutating|@RateLimit\"",
+    "test:headed": "playwright test --headed --grep-invert \"@Mutating|@RateLimit\"",
+    "test:debug": "playwright test --debug --grep-invert \"@Mutating|@RateLimit\"",
+    "test:smoke": "playwright test --grep @Smoke --project=chromium --retries=0",
+    "test:positive": "playwright test tests/functional/SignUp.test.ts --project=chromium --retries=0",
+    "test:negative": "playwright test tests/functional/SignUpValidation.test.ts --grep-invert @Mutating",
+    "test:fields": "playwright test tests/functional/SignUpFieldsAndLabels.test.ts",
+    "test:api": "playwright test tests/api/SignUpAccounts.test.ts --project=chromium --retries=0",
+    "test:a11y": "playwright test tests/accessibility/SignUpAccessibility.test.ts",
+    "test:responsive": "playwright test tests/responsive/SignUpResponsive.test.ts",
+    "test:security": "playwright test tests/security/SignUpSecurity.test.ts --grep-invert @Mutating",
+    "test:mutating": "playwright test --project=chromium --grep @Mutating --grep-invert @RateLimit --retries=0",
+    "test:ratelimit": "playwright test tests/security/SignUpRateLimit.test.ts --project=chromium --retries=0",
+    "report": "playwright show-report",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  }
+}
