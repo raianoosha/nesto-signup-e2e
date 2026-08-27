@@ -17,24 +17,24 @@ cp .env.example .env # optional: override BASE_URL or DEFAULT_LOCALE
 
 ## Test commands
 
-| Command                  | Scope                                                     |
-| ------------------------ | --------------------------------------------------------- |
-| `npm test`               | Non-mutating tests, both locales, all configured browsers |
-| `npm run test:en`        | Non-mutating English tests                                |
-| `npm run test:fr`        | Non-mutating French tests                                 |
-| `npm run test:headed`    | Non-mutating tests in headed mode                         |
-| `npm run test:debug`     | Non-mutating tests in Playwright Inspector                |
-| `npm run test:fields`    | Field, label, and localized-copy coverage                 |
-| `npm run test:negative`  | Validation coverage, excluding duplicate-account creation |
-| `npm run test:a11y`      | axe-core, accessible-name, and keyboard coverage          |
-| `npm run test:responsive`| Layout/overflow checks at mobile, tablet, and desktop     |
-| `npm run test:security`  | Non-mutating input and response-header checks             |
-| `npm run test:smoke`     | Account-creation smoke tests on Chromium                  |
-| `npm run test:positive`  | Happy-path account creation on Chromium                   |
-| `npm run test:api`       | UI-triggered account API contract checks on Chromium      |
-| `npm run test:mutating`  | All account-creating tests on Chromium, without retries   |
-| `npm run test:ratelimit` | Manual destructive rate-limit check on Chromium           |
-| `npm run report`         | Open the most recent local HTML report                    |
+| Command                   | Scope                                                     |
+| ------------------------- | --------------------------------------------------------- |
+| `npm test`                | Non-mutating tests, both locales, all configured browsers |
+| `npm run test:en`         | Non-mutating English tests                                |
+| `npm run test:fr`         | Non-mutating French tests                                 |
+| `npm run test:headed`     | Non-mutating tests in headed mode                         |
+| `npm run test:debug`      | Non-mutating tests in Playwright Inspector                |
+| `npm run test:fields`     | Field, label, and localized-copy coverage                 |
+| `npm run test:negative`   | Validation coverage, excluding duplicate-account creation |
+| `npm run test:a11y`       | axe-core, accessible-name, and keyboard coverage          |
+| `npm run test:responsive` | Layout/overflow checks at mobile, tablet, and desktop     |
+| `npm run test:security`   | Non-mutating input and response-header checks             |
+| `npm run test:smoke`      | Account-creation smoke tests on Chromium                  |
+| `npm run test:positive`   | Happy-path account creation on Chromium                   |
+| `npm run test:api`        | UI-triggered account API contract checks on Chromium      |
+| `npm run test:mutating`   | All account-creating tests on Chromium, without retries   |
+| `npm run test:ratelimit`  | Manual destructive rate-limit check on Chromium           |
+| `npm run report`          | Open the most recent local HTML report                    |
 
 Quality commands:
 

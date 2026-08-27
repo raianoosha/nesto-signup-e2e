@@ -91,9 +91,10 @@ for (const locale of LOCALES) {
       await test.step(`Verify both URLs actually resolve instead of being dead links`, async () => {
         for (const url of [copy.termsLink.href, copy.privacyLink.href]) {
           const response = await request.get(url);
-          expect(response.ok(), `${url} should resolve successfully, got ${response.status()}`).toBe(
-            true,
-          );
+          expect(
+            response.ok(),
+            `${url} should resolve successfully, got ${response.status()}`,
+          ).toBe(true);
         }
       });
     });
@@ -113,10 +114,9 @@ for (const locale of LOCALES) {
         // The logo can take a moment to finish loading after it's already
         // visible in the DOM, so poll rather than reading naturalWidth once.
         await expect
-          .poll(
-            () => signUpPage.LOGO.evaluate((img) => (img as HTMLImageElement).naturalWidth),
-            { message: 'logo image should decode real pixel data, not be broken' },
-          )
+          .poll(() => signUpPage.LOGO.evaluate((img) => (img as HTMLImageElement).naturalWidth), {
+            message: 'logo image should decode real pixel data, not be broken',
+          })
           .toBeGreaterThan(0);
       });
     });
